@@ -1,0 +1,20 @@
+{
+  "name": "galilrefunds",
+  "version": "1.0.0",
+  "description": "Storing all transfer bill throght web ",
+  "main": "server.js ",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^3.5.1",
+    "express": "^4.16.3",
+    "mongodb": "^3.1.0",
+    "mongoose": "^5.2.0",
+    "nodemon": "^1.17.4"
+  }
+}
