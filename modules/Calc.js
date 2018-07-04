@@ -7,7 +7,6 @@ let trasnformationDetails = {}
 const FolderName = "/Documents/GalilRefuds/";
 exports.getRequest = (data) =>{
     console.log('tranportationcCarArea' ,tranportationcCarArea.TranportationCarArea.TelAviv);
-    console.log('tranportationcCarArea' ,tranportationcCarArea.TelAviv);
-    console.log(data)
+    console.log(data.trasnporationDetails.Trran)
  
 }

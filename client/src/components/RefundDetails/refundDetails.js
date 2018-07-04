@@ -27,28 +27,35 @@ class RefundDetails extends Component {
             addtionalCost: '',
             selectedOption: '',
             Passengersnumber: '',
-            show: false,
-            choosedDate : moment()
+            Area : '',
+            showPassengers: false,
+            choosedDate : moment(),
+            count : 0
         };
 
         this.handleChangeAddtionalCost = this.handleChangeAddtionalCost.bind(this);
         this.handleChangeSelectTransporation = this.handleChangeSelectTransporation.bind(this);
         this.handleChangeOfTransposrationsCost = this.handleChangeOfTransposrationsCost.bind(this);
         this.handleChangePassengers = this.handleChangePassengers.bind(this);
+        this.handleChangeArea = this.handleChangeArea.bind(this);
         this.handleChangeOfSelectedDate = this.handleChangeOfSelectedDate.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChangeSelectTransporation(newvalue) {
+        
         this.setState({ selectedOption: newvalue });
         if (newvalue === null || newvalue === false )
             return;
         if ( newvalue.value === 'Car') {
-            this.setState({ show: true });
+            this.setState({ showPassengers: true });
 
         } else {
-            this.setState({ show: false });
+            this.setState({ showPassengers: false });
 
+        }
+        if (newvalue.value){
+            this.setState({count  : 1})
         }
     }
 
@@ -62,6 +69,12 @@ class RefundDetails extends Component {
     handleChangePassengers(passNumber) {
         this.setState({ Passengersnumber: passNumber });
     }
+
+    handleChangeArea(area) {
+        this.setState({ Area: area });
+    }
+
+
 
     handleChangeOfTransposrationsCost(event) {
         this.setState({ transportationCost: event.target.value });
@@ -84,7 +97,8 @@ class RefundDetails extends Component {
                 transportationCost: this.state.transportationCost,
                 addtionalCost: this.state.addtionalCost,
                 transportationType: this.state.selectedOption.value,
-                passengersNumber: this.state.Passengersnumber,
+                passengersNumber: this.state.Passengersnumber.value,
+                area : this.state.Area,
                 date : this.state.choosedDate
                         }
         }).then(response => {
@@ -101,17 +115,35 @@ class RefundDetails extends Component {
             value:
                 `${trans.TransportationType}`, label: `${trans.TransportationType}`
         }));
+        //passengers Number
         let PassegersArray = [{ value: '1', label: '1' },
         { value: '2', label: '2' },
         { value: '3', label: '3' },
         { value: '4', label: '4' }
         ];
+        
+        let AreaArray = [{ value: '1', label: 'Telviv' },
+        { value: '2', label: 'Haifa' },
+        { value: '3', label: 'Nazareth' },
+        { value: '4', label: 'Afula' }
+        ];
         let PassengersNum;
-        if (this.state.show) {
-            PassengersNum = <div> <label className='text-left'>Passengers Number</label>
+        if (this.state.showPassengers && this.state.count == 1 ) {
+            PassengersNum = <div><div> <label className='text-left'>Passengers Number :</label>
                 <Select value={this.state.Passengersnumber} onChange={this.handleChangePassengers}
                     options={PassegersArray} />
             </div>
+            <div> <label className='text-left'>Choose Area :</label>
+                <Select value={this.state.Area} onChange={this.handleChangeArea}
+                    options={AreaArray} />
+            </div>
+            </div>
+        }else if (this.state.count ==1){
+            PassengersNum =  <div >
+                            <label className='text-left' >Cost : </label>
+                            <input className='form-control' type="text" name="transportationCost" value={this.state.transportationCost}
+                            onChange={this.handleChangeOfTransposrationsCost} placeholder="please insert cost" />
+        </div>
         }
         return (
             <div >
@@ -127,11 +159,7 @@ class RefundDetails extends Component {
                                 onChange={this.handleChangeSelectTransporation} options={optionItems} />
                         </div>
                         {PassengersNum}
-                        <div >
-                            <label className='text-left' >Cost : </label>
-                            <input className='form-control' type="text" name="transportationCost" value={this.state.transportationCost}
-                                onChange={this.handleChangeOfTransposrationsCost} placeholder="please insert cost" />
-                        </div>
+                       
                         <div>
                             <label className='text-left' >AddtionalCost : </label>
                             <input className='form-control' type="text" name="addtionalCost" value={this.state.addtionalCost}

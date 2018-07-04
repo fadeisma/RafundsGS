@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var calc = require('./modules/Calc');
+var tranportationTpe = require('./staitcInfo/TranportationType')
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://fadeI:fadesa12@ds125181.mlab.com:25181/ransporationrefunds');
@@ -27,13 +28,8 @@ app.get('/api/reportData', (req, res) => {
 });
 
 app.get('/api/transporationTypes', (req, res) => {
-    const trasnportation = [
-        { id: 1, TransportationType: 'Bus' },
-        { id: 2, TransportationType: 'Car' },
-        { id: 3, TransportationType: 'Train' }
-    ];
-
-    res.json(trasnportation);
+    
+    res.json(tranportationTpe.TransportationType);
 });
 
 
