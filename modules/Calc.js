@@ -2,7 +2,7 @@ var os = require('os');
 var fs = require('fs');
 let trasnformationDetails = {}
 
-
+//do Calculation of data 
 const FolderName = "/Documents/GalilRefuds/";
 exports.getRequest = (data) =>{
     var home = os.homedir();
