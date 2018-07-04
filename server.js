@@ -36,9 +36,10 @@ app.get('/api/transporationTypes', (req, res) => {
     res.json(trasnportation);
 });
 
+
+// Post Request 
 app.post('/api/processData', (req, res) => {
     calc.getRequest(req.body);
-    res.json(req.body);
 
 });
 

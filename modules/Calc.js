@@ -1,21 +1,13 @@
 var os = require('os');
 var fs = require('fs');
+var tranportationcCarArea = require('../staitcInfo/TranportationCarArea')
 let trasnformationDetails = {}
 
 //do Calculation of data 
 const FolderName = "/Documents/GalilRefuds/";
 exports.getRequest = (data) =>{
-    var home = os.homedir();
-    console.log('home' ,home);
-    var fileName = data.trasnporationDetails.date;
-    console.log('fileName ' , fileName);
-    if (fileName){
-        if (fs.exists){
-
-        }
-
-    } 
-    
-    trasnformationDetails = data.trasnporationDetails;
-    console.log('Data' , trasnformationDetails.transportationType);
+    console.log('tranportationcCarArea' ,tranportationcCarArea.TranportationCarArea.TelAviv);
+    console.log('tranportationcCarArea' ,tranportationcCarArea.TelAviv);
+    console.log(data)
+ 
 }
