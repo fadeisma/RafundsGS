@@ -23,6 +23,7 @@ class RefundDetails extends Component {
         super(props);
         this.state = {
             trasnportation: [],
+            transportationArea :[],
             transportationCost: '',
             addtionalCost: '',
             selectedOption: '',
@@ -64,6 +65,12 @@ class RefundDetails extends Component {
         fetch('api/transporationTypes')
             .then(res => res.json())
             .then(trasnportation => this.setState({ trasnportation }));
+
+            fetch('api/transportationArea')
+            .then(res => res.json())
+            .then(transportationArea => {
+                 this.setState({ transportationArea })
+                 });
     }
 
     handleChangePassengers(passNumber) {
@@ -73,9 +80,6 @@ class RefundDetails extends Component {
     handleChangeArea(area) {
         this.setState({ Area: area });
     }
-
-
-
     handleChangeOfTransposrationsCost(event) {
         this.setState({ transportationCost: event.target.value });
     }
@@ -98,7 +102,7 @@ class RefundDetails extends Component {
                 addtionalCost: this.state.addtionalCost,
                 transportationType: this.state.selectedOption.value,
                 passengersNumber: this.state.Passengersnumber.value,
-                area : this.state.Area,
+                area : this.state.Area.label,
                 date : this.state.choosedDate
                         }
         }).then(response => {
@@ -115,6 +119,10 @@ class RefundDetails extends Component {
             value:
                 `${trans.TransportationType}`, label: `${trans.TransportationType}`
         }));
+        let areaArray = this.state.transportationArea.map((area) =>({
+           value : `${area.id}` , label : `${area.transportationArea}` 
+       }));
+       
         //passengers Number
         let PassegersArray = [{ value: '1', label: '1' },
         { value: '2', label: '2' },
@@ -122,11 +130,11 @@ class RefundDetails extends Component {
         { value: '4', label: '4' }
         ];
         
-        let AreaArray = [{ value: '1', label: 'Telviv' },
-        { value: '2', label: 'Haifa' },
-        { value: '3', label: 'Nazareth' },
-        { value: '4', label: 'Afula' }
-        ];
+        // let AreaArray = [{ value: '1', label: 'Telviv' },
+        // { value: '2', label: 'Haifa' },
+        // { value: '3', label: 'Nazareth' },
+        // { value: '4', label: 'Afula' }
+        // ];
         let PassengersNum;
         if (this.state.showPassengers && this.state.count == 1 ) {
             PassengersNum = <div><div> <label className='text-left'>Passengers Number :</label>
@@ -135,7 +143,7 @@ class RefundDetails extends Component {
             </div>
             <div> <label className='text-left'>Choose Area :</label>
                 <Select value={this.state.Area} onChange={this.handleChangeArea}
-                    options={AreaArray} />
+                    options={areaArray} />
             </div>
             </div>
         }else if (this.state.count ==1){
