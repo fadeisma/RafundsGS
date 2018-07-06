@@ -142,7 +142,7 @@ class RefundDetails extends Component {
         // { value: '4', label: 'Afula' }
         // ];
         let PassengersNum;
-        if (this.state.showPassengers && this.state.count == 1) {
+        if (this.state.showPassengers && this.state.count === 1) {
             PassengersNum = <div><div> <label className='text-left'>Passengers Number :</label>
                 <Select value={this.state.Passengersnumber} onChange={this.handleChangePassengers}
                     options={passengerArray} />
@@ -152,7 +152,7 @@ class RefundDetails extends Component {
                         options={areaArray} />
                 </div>
             </div>
-        } else if (this.state.count == 1) {
+        } else if (this.state.count === 1) {
             PassengersNum = <div >
                 <label className='text-left' >Cost : </label>
                 <input className='form-control' type="text" name="transportationCost" value={this.state.transportationCost}

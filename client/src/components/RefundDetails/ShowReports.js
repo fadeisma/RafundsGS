@@ -20,15 +20,15 @@ class Report extends React.Component {
     }
 
     render() {
-
+        console.log(this.state.tableData)
         var products = [{
             id: 1,
-            name: "Product1",
-            price: 120
-        }, {
-            id: 2,
-            name: "Product2",
-            price: 80
+            date: "7/6/18",
+            type: 'Car',
+            area : 50,
+            passengerNumber : 3,
+            addtionalCost : 5
+
         }];
         const columns = [{
             dataField: 'id',
@@ -50,7 +50,7 @@ class Report extends React.Component {
             text: 'Addtional'
           },];
         return (
-            <BootstrapTable keyField='id' data={ products } columns={ columns } />
+            <BootstrapTable keyField='id' data={ this.state.tableData } columns={ columns } />
 
         );
 

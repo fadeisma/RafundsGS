@@ -23,10 +23,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
 app.get('/api/reportData', (req, res) => {
-    const tableData = [
-        { date: '7/11/2018', transporationType: 'Bus', Cost: 120 }
-    ]
-    res.json(tableData);
+    const products = [{
+        id: 1,
+        date: "7/6/18",
+        type: 'Car',
+        area : 50,
+        passengerNumber : 3,
+        addtionalCost : 5
+
+    }]
+    res.json(products);
 });
 
 app.get('/api/transportationArea', (req, res) => {
