@@ -6,9 +6,9 @@ var TranportationSchema = new Schema({
     TranportationDate : Date ,
     TranportationType : String,
     TranportationArea : String,
-    PssengersNumber : Number,
-    TranportationCost : Number,
-    AddtionalCost: Number 
+    PssengersCost : String,
+    AddtionalCost: String,
+    TotlaCost : Number 
 });
 
 var TranportationRefund = mongoose.model('TranportationType', TranportationSchema);

@@ -4,6 +4,7 @@ var calc = require('./modules/Calc');
 var tranportationType = require('./staitcInfo/TranportationType');
 var transportationArea = require('./staitcInfo/TranportationCarArea');
 var passengersCost = require('./staitcInfo/PasengersConst');
+var TransportationRefund = require('./db/TransportationRefund');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://fadeI:fadesa12@ds125181.mlab.com:25181/ransporationrefunds');
@@ -27,34 +28,43 @@ app.get('/api/reportData', (req, res) => {
         id: 1,
         date: "7/6/18",
         type: 'Car',
-        area : 50,
-        passengerNumber : 3,
-        addtionalCost : 5
+        area: 50,
+        passengerNumber: 3,
+        addtionalCost: 5
 
-    }]
-    res.json(products);
+    }];
+    const refuds = [];
+    TransportationRefund.find({}, function (err, data) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(data);
+            res.json(data);
+        }
+    });
 });
 
-app.get('/api/transportationArea', (req, res) => {
-    res.json(transportationArea.TranportationCarArea);
-});
+    app.get('/api/transportationArea', (req, res) => {
+        res.json(transportationArea.TranportationCarArea);
+    });
 
-app.get('/api/transporationTypes', (req, res) => {    
-    res.json(tranportationType.TransportationType);
-});
+    app.get('/api/transporationTypes', (req, res) => {
+        res.json(tranportationType.TransportationType);
+    });
 
-app.get('/api/transporationPassengers', (req, res) => {  
-    res.json(passengersCost.PassengersCost);
-});
+    app.get('/api/transporationPassengers', (req, res) => {
+        res.json(passengersCost.PassengersCost);
+    });
 
 
 
-// Post Request 
-app.post('/api/processData', (req, res) => {
-    calc.getRequest(req.body.trasnporationDetails);
-    res.json(200);
-});
+    // Post Request 
+    app.post('/api/processData', (req, res) => {
+        calc.getRequest(req.body.trasnporationDetails);
+        res.json(200);
+    });
 
-const port = 5000;
+    const port = 5000;
 
-app.listen(port, () => console.log('server started on port 5000'));
+    app.listen(port, () => console.log('server started on port 5000'));

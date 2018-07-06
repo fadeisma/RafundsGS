@@ -20,7 +20,18 @@ class Report extends React.Component {
     }
 
     render() {
-        console.log(this.state.tableData)
+        console.log('this.state.tableData',this.state.tableData);
+       let options =  this.state.tableData.map((trans) => ({
+        
+            id: trans._id,
+            date: trans.TranportationDate,
+            type: trans.TranportationType,
+            area : trans.TranportationArea,
+            passengerNumber : trans.PssengersCost,
+            addtionalCost : trans.AddtionalCost 
+        
+       }));
+       console.log('options ' ,options)
         var products = [{
             id: 1,
             date: "7/6/18",
@@ -50,7 +61,7 @@ class Report extends React.Component {
             text: 'Addtional'
           },];
         return (
-            <BootstrapTable keyField='id' data={ this.state.tableData } columns={ columns } />
+            <BootstrapTable keyField='id' data={ options } columns={ columns } />
 
         );
 
