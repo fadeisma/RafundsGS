@@ -1,8 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var calc = require('./modules/Calc');
-var tranportationTpe = require('./staitcInfo/TranportationType');
+var tranportationType = require('./staitcInfo/TranportationType');
 var transportationArea = require('./staitcInfo/TranportationCarArea');
+var passengersCost = require('./staitcInfo/PasengersConst');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://fadeI:fadesa12@ds125181.mlab.com:25181/ransporationrefunds');
@@ -33,14 +34,17 @@ app.get('/api/transportationArea', (req, res) => {
 });
 
 app.get('/api/transporationTypes', (req, res) => {    
-    res.json(tranportationTpe.TransportationType);
+    res.json(tranportationType.TransportationType);
+});
+
+app.get('/api/transporationPassengers', (req, res) => {  
+    res.json(passengersCost.PassengersCost);
 });
 
 
 
 // Post Request 
 app.post('/api/processData', (req, res) => {
-    console.log('Fadi' ,req.body );
     calc.getRequest(req.body.trasnporationDetails);
     res.json(200);
 });
