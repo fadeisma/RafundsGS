@@ -22,8 +22,6 @@ class Report extends React.Component {
     render() {
         console.log('this.state.tableData',this.state.tableData);
        let options =  this.state.tableData.map((trans) => ({
-        
-            id: trans._id,
             date: trans.TranportationDate,
             type: trans.TranportationType,
             area : trans.TranportationArea,
@@ -41,10 +39,7 @@ class Report extends React.Component {
             addtionalCost : 5
 
         }];
-        const columns = [{
-            dataField: 'id',
-            text: 'Transportation ID'
-          }, {
+        const columns = [ {
             dataField: 'date',
             text: 'Date'
           }, {
