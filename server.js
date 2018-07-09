@@ -6,7 +6,11 @@ var transportationArea = require('./staitcInfo/TranportationCarArea');
 var passengersCost = require('./staitcInfo/PasengersConst');
 var TransportationRefund = require('./db/TransportationRefund');
 var mongoose = require('mongoose');
-
+var passport = require('passport')
+var session = require('express-session');
+var localStrategy = require('passport-local');
+var multer = require('multer');
+var upload = multer({des:'./uploads'});
 
 mongoose.connect('mongodb://fadeI:fadesa12@ds125181.mlab.com:25181/ransporationrefunds');
 
@@ -18,22 +22,26 @@ db.once('open', function () {
 
 
 const app = express();
+
+
 app.use('/static', express.static('./server/static'));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json())
 
-app.get('/api/reportData', (req, res) => {
-    const products = [{
-        id: 1,
-        date: "7/6/18",
-        type: 'Car',
-        area: 50,
-        passengerNumber: 3,
-        addtionalCost: 5
+// handle session 
+app.use(session({
+    secret : 'secret',
+    saveUninitialized :true,
+    resave :true
+}))
 
-    }];
+
+// pasport 
+app.use(passport.initialize());
+app.use(passport.session());
+app.get('/api/reportData', (req, res) => {
     const refuds = [];
     TransportationRefund.find({}, function (err, data) {
         if (err) {
