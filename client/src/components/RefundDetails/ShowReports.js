@@ -30,15 +30,7 @@ class Report extends React.Component {
         
        }));
        console.log('options ' ,options)
-        var products = [{
-            id: 1,
-            date: "7/6/18",
-            type: 'Car',
-            area : 50,
-            passengerNumber : 3,
-            addtionalCost : 5
 
-        }];
         const columns = [ {
             dataField: 'date',
             text: 'Date'
