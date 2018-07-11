@@ -24,7 +24,7 @@ class App extends Component {
     return (
       <div>
         <div>
-        <Navbar color="light" light expand="md">
+        <Navbar color="dark" inverse expand="md">
           <NavbarBrand href="/"><Badge color="secondary">Automation Refunds</Badge></NavbarBrand>
           <NavbarToggler />
             <Nav className="ml-auto" navbar>
