@@ -10,6 +10,8 @@ var passport = require('passport')
 var session = require('express-session');
 var localStrategy = require('passport-local');
 var multer = require('multer');
+
+var user = require('./modules/Users');
 var upload = multer({des:'./uploads'});
 
 mongoose.connect('mongodb://fadeI:fadesa12@ds125181.mlab.com:25181/ransporationrefunds');
@@ -41,6 +43,7 @@ app.use(session({
 // pasport 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('/api/user',user);
 app.get('/api/reportData', (req, res) => {
     const refuds = [];
     TransportationRefund.find({}, function (err, data) {
@@ -54,6 +57,9 @@ app.get('/api/reportData', (req, res) => {
     });
 });
 
+// app.post('/api/user', function(req,res){
+//     console.log(req.body)
+// });
     app.get('/api/transportationArea', (req, res) => {
         res.json(transportationArea.TranportationCarArea);
     });
