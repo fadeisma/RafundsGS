@@ -15,13 +15,16 @@ class Register extends Component {
             password: '',
             customer: '',
             galilDepartment: ''
-        }
+        };
 
         this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
         this.handleChangeLastName = this.handleChangeLastName.bind(this);
-        this.handleChangeEmail = this.handleChangeEmail.bind(this);
-        this.handleChangePassword = this.handleChangePassword.bind(this);
-        this.handleChangeCustomer = this.handleChangeCustomer.bind(this);
+        // this.handleChangeEmail = this.handleChangeEmail.bind(this);
+        // this.handleChangePassword = this.handleChangePassword.bind(this);
+        // this.handleChangeCustomer = this.handleChangeCustomer.bind(this);
+        // this.handleChangeDepartment = this.handleChangeDepartment.bind(this);
+
+
     }
 
 
@@ -38,19 +41,17 @@ class Register extends Component {
 
     }
     handleSubmit(event) {
+      
         event.preventDefault();
-        axios.post('api/processData', {
+        
+        console.log("firstName ",   this.state.firstName);
+        axios.post('api/user/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             user: {
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                email: this.state.email,
-                addtionalCost: this.state.addtionalCost,
-                transportationType: this.state.selectedOption.value,
-                passengersNumber: this.state.Passengersnumber.value,
-                area: this.state.Area.label,
-                date: this.state.choosedDate
+                FirstName: this.state.firstName,
+             
+               
             }
         }).then(response => {
             this.notify();
@@ -60,22 +61,26 @@ class Register extends Component {
                 console.log(err, 'Signature not added, try again');
             });
     }
-    handleChangeFirstName(firstName) {
-        this.setState({ firstName: firstName })
+    handleChangeFirstName(event) {
+        this.setState({ firstName: event.target.value });
+        
     }
-    handleChangeLastName(lastName) {
-        this.setState({ lastName: lastName })
+    handleChangeLastName(event) {
+        this.setState({ lastName: event.target.value });
     }
     //
     handleChangeEmail(email) {
-        this.setState({ email: email })
+        this.setState({ email: email });
     }
     handleChangePassword(password) {
-        this.setState({ password: password })
+        this.setState({ password: password });
     }
 
     handleChangeCustomer(customer){
-        this.setState({ customer: customer })
+        this.setState({ customer: customer });
+    }
+    handleChangeDepartment(dep){
+        this.setState({ galilDepartment: dep });
     }
 
     render() {
@@ -89,15 +94,16 @@ class Register extends Component {
         }));
         return (
             <div className="container">
-                <form>
+                <form className='form-group' onSubmit={this.handleSubmit}>
                     <div>
                         <label>First Name:</label>
-                        <input className='form-control' onChange={this.handleChangeFirstName} type="text" placeholder="Please insert Name" />
+                        <input className='form-control'
+                         onChange={this.handleChangeFirstName} type="text" placeholder="Please insert Name" />
                     </div>
 
                     <div>
                         <label>Last Name:</label>
-                        <input className='form-control' onChange={this.handleChangePassword} type="text" placeholder="Please insert LastName" />
+                        <input className='form-control' onChange={this.handleChangeLastName} type="text" placeholder="Please insert LastName" />
                     </div>
                     <div>
                         <label>Email:</label>
@@ -114,8 +120,7 @@ class Register extends Component {
                     </div>
                     <div>
                         <label> Department :</label>
-                        <Select
-                            options={departementOption} />
+                        <Select options={departementOption} value={this.state.galilDepartment} onChange={this.handleChangeDepartment} />
                     </div>
                     <button className='form-control btn btn-primary float-left' type="submit" >Register Now</button>
                 </form>

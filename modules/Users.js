@@ -5,7 +5,7 @@ var GalilInfo   =  require('../staitcInfo/GalilInfo');
 // middleware that is specific to this router
 
 // define the home page route
-router.post('/',function (req, res) {
+router.post('/register',function (req, res) {
      console.log(req.body)
   res.send('Birds home page')
 });
