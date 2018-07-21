@@ -5,7 +5,6 @@ class Login extends Component {
 
 
     handleSubmit(event) {
-        console.log('dddddd');
         event.preventDefault();
         axios.post('/api/user', {
             method: 'POST',

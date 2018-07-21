@@ -57,9 +57,7 @@ app.get('/api/reportData', (req, res) => {
     });
 });
 
-// app.post('/api/user', function(req,res){
-//     console.log(req.body)
-// });
+
     app.get('/api/transportationArea', (req, res) => {
         res.json(transportationArea.TranportationCarArea);
     });
