@@ -12,13 +12,10 @@ import {
 } from 'reactstrap';
 import { Route, Link, Switch } from 'react-router-dom'
 
-
 import RefundDetails from './components/RefundDetails/refundDetails';
-import Report from './components/RefundDetails/ShowReports';
+import Report from './components/RefundDetails/Report';
 import Login from './components/Auth/login';
 import Register from'./components/Auth/register';
-
-
 
 
 class App extends Component {

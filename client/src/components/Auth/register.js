@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+
 import axios from 'axios';
 import Select from 'react-select';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Register extends Component {
+    notify = () => {
 
+        toast.success("Updated Successfully", {
+            position: toast.POSITION.BOTTOM_RIGHT
+        });
+    }
+    notifyerror = () => {
+
+        toast.error("Updated Successfully", {
+            position: toast.POSITION.BOTTOM_RIGHT
+        });
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -19,14 +33,14 @@ class Register extends Component {
 
         this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
         this.handleChangeLastName = this.handleChangeLastName.bind(this);
-        // this.handleChangeEmail = this.handleChangeEmail.bind(this);
-        // this.handleChangePassword = this.handleChangePassword.bind(this);
-        // this.handleChangeCustomer = this.handleChangeCustomer.bind(this);
-        // this.handleChangeDepartment = this.handleChangeDepartment.bind(this);
+        this.handleChangeEmail = this.handleChangeEmail.bind(this);
+        this.handleChangePassword = this.handleChangePassword.bind(this);
+        this.handleChangeCustomer = this.handleChangeCustomer.bind(this);
+        this.handleChangeDepartment = this.handleChangeDepartment.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 
 
     }
-
 
     componentDidMount() {
         fetch('api/user/GalilCustomers')
@@ -36,31 +50,8 @@ class Register extends Component {
         fetch('api/user/GalilDepartement')
             .then(res => res.json())
             .then(departements => this.setState({ departements }));
-
-
-
     }
-    handleSubmit(event) {
-      
-        event.preventDefault();
-        
-        console.log("firstName ",   this.state.firstName);
-        axios.post('api/user/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            user: {
-                FirstName: this.state.firstName,
-             
-               
-            }
-        }).then(response => {
-            this.notify();
-            console.log(response, 'Signature added!');
-        })
-            .catch(err => {
-                console.log(err, 'Signature not added, try again');
-            });
-    }
+  
     handleChangeFirstName(event) {
         this.setState({ firstName: event.target.value });
         
@@ -69,11 +60,11 @@ class Register extends Component {
         this.setState({ lastName: event.target.value });
     }
     //
-    handleChangeEmail(email) {
-        this.setState({ email: email });
+    handleChangeEmail(event) {
+        this.setState({ email: event.target.value });
     }
-    handleChangePassword(password) {
-        this.setState({ password: password });
+    handleChangePassword(event) {
+        this.setState({ password: event.target.value  });
     }
 
     handleChangeCustomer(customer){
@@ -81,6 +72,27 @@ class Register extends Component {
     }
     handleChangeDepartment(dep){
         this.setState({ galilDepartment: dep });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        axios.post('/api/user/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            user: {
+                firstName: this.state.firstName,
+                lastName : this.state.lastName,
+                email : this.state.email,
+                password : this.state.password,
+                customer : this.state.customer,
+                department : this.state.galilDepartment
+            }
+        }).then(response => {
+            this.notify();
+        })
+            .catch(err => {
+                this.notifyerror();
+            });
     }
 
     render() {
@@ -98,7 +110,7 @@ class Register extends Component {
                     <div>
                         <label>First Name:</label>
                         <input className='form-control'
-                         onChange={this.handleChangeFirstName} type="text" placeholder="Please insert Name" />
+                         onChange={this.handleChangeFirstName} name ="firstName" type="text" placeholder="Please insert Name" />
                     </div>
 
                     <div>
@@ -122,12 +134,15 @@ class Register extends Component {
                         <label> Department :</label>
                         <Select options={departementOption} value={this.state.galilDepartment} onChange={this.handleChangeDepartment} />
                     </div>
+                    <div >
                     <button className='form-control btn btn-primary float-left' type="submit" >Register Now</button>
+                    <ToastContainer />
+                    </div>
                 </form>
             </div>
 
-        )
-    };
+        );
+    }
 }
 
 export default Register;

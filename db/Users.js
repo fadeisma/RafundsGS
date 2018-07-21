@@ -4,10 +4,10 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
     userName : {type : String , unique : true} ,
+    fullName : String,
     password : String,
     departement : String,
     customer : String,
-    role : String
 });
 
 var User = mongoose.model('User', UserSchema);

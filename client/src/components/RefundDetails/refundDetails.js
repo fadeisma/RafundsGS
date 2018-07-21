@@ -15,7 +15,7 @@ class RefundDetails extends Component {
 
     notify = () => {
 
-        toast.info("Updated Successfully", {
+        toast.success("Updated Successfully", {
             position: toast.POSITION.BOTTOM_RIGHT
         });
     }
