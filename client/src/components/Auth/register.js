@@ -90,9 +90,9 @@ class Register extends Component {
         }).then(response => {
             this.notify();
         })
-            .catch(err => {
-                this.notifyerror();
-            });
+        .catch(err => {
+          this.notifyerror();
+         });
     }
 
     render() {
